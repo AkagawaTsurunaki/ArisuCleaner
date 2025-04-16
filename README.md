@@ -1,6 +1,6 @@
 # Arisu Cleaner
 
-![Static Badge](https://img.shields.io/badge/Minecraft-1.21.5-gren) ![Static Badge](https://img.shields.io/badge/Fabric-blue)
+![Static Badge](https://img.shields.io/badge/Minecraft-1.21.5-gren) ![Static Badge](https://img.shields.io/badge/Fabric-blue) ![Static Badge](https://img.shields.io/badge/ServerOnly-orange)
 
 定时清理 Minecraft 服务器中的各维度的物品实体（Item Entity），并在清理前通知所有玩家。
 

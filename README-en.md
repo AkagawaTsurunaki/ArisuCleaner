@@ -1,7 +1,6 @@
 # Arisu Cleaner
 
-![Static Badge](https://img.shields.io/badge/Minecraft-1.21.5-gren) ![Static Badge](https://img.shields.io/badge/Fabric-blue)
-
+![Static Badge](https://img.shields.io/badge/Minecraft-1.21.5-gren) ![Static Badge](https://img.shields.io/badge/Fabric-blue) ![Static Badge](https://img.shields.io/badge/ServerOnly-orange)
 
 Periodically clear item entities in all dimensions of the Minecraft Server and notify all players beforehand.
 
