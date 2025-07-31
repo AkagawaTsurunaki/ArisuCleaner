@@ -3,9 +3,9 @@
 	"id": "arisucleaner",
 	"version": "${version}",
 	"name": "ArisuCleaner",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Periodically clear item entities in all dimensions of the Minecraft Server and notify all players beforehand.",
 	"authors": [
-		"Me!"
+		"AkagawaTsurunaki"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
@@ -31,7 +31,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.16.13",
-		"minecraft": "~1.21.5",
+		"minecraft": "~1.21.4",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
