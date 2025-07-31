@@ -4,6 +4,8 @@
 
 定时清理 Minecraft 服务器中的各维度的物品实体（Item Entity），并在清理前通知所有玩家。
 
+**支持的 Minecraft 版本**：`1.21.4`、`1.21.5`
+
 ## 使用方法
 
 ```
@@ -28,6 +30,8 @@
 
 ## Contact with me
 
-Email: AkagawaTsurunaki@outlook.com
+Bilibili: [赤川鹤鸣_Channel](https://space.bilibili.com/1076299680)
 
-Github: AkagawaTsurunaki
+Email: [AkagawaTsurunaki@outlook.com](mailto:AkagawaTsurunaki@outlook.com)
+
+Github: [AkagawaTsurunaki](https://github.com/AkagawaTsurunaki)

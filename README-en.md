@@ -4,6 +4,8 @@
 
 Periodically clear item entities in all dimensions of the Minecraft Server and notify all players beforehand.
 
+**Supported Minecraft versions**: `1.21.4`, `1.21.5`
+
 ## Usage
 
 ```plaintext
@@ -25,3 +27,11 @@ Clear item entities in all dimensions every 600 Ticks, and notify all players 10
 
 The scheduled task is based on server Ticks. Therefore, if the server's TickRate is modified, the execution frequency of the task will also be affected.
 By default, the server's TickRate is 20, meaning that 20 Ticks are equivalent to 1 second in real time.
+
+## Contact with me
+
+Bilibili: [赤川鹤鸣_Channel](https://space.bilibili.com/1076299680)
+
+Email: [AkagawaTsurunaki@outlook.com](mailto:AkagawaTsurunaki@outlook.com)
+
+Github: [AkagawaTsurunaki](https://github.com/AkagawaTsurunaki)
