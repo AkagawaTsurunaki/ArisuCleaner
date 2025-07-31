@@ -1,8 +1,10 @@
 # Arisu Cleaner
 
-![Static Badge](https://img.shields.io/badge/Minecraft-1.21.5-blue) ![Static Badge](https://img.shields.io/badge/Fabric-0.16.13-blue) ![Static Badge](https://img.shields.io/badge/ver-1.0.0-blue) ![Static Badge](https://img.shields.io/badge/ServerOnly-orange)
+![Static Badge](https://img.shields.io/badge/Minecraft-1.21.4-blue) ![Static Badge](https://img.shields.io/badge/Fabric-0.16.13-blue) ![Static Badge](https://img.shields.io/badge/ver-1.0.0-blue) ![Static Badge](https://img.shields.io/badge/ServerOnly-orange)
 
 Periodically clear item entities in all dimensions of the Minecraft Server and notify all players beforehand.
+
+**Supported Minecraft versions**: `1.21.4`, `1.21.5`
 
 ## Usage
 
@@ -25,3 +27,11 @@ Clear item entities in all dimensions every 600 Ticks, and notify all players 10
 
 The scheduled task is based on server Ticks. Therefore, if the server's TickRate is modified, the execution frequency of the task will also be affected.
 By default, the server's TickRate is 20, meaning that 20 Ticks are equivalent to 1 second in real time.
+
+## Contact with me
+
+Bilibili: [赤川鹤鸣_Channel](https://space.bilibili.com/1076299680)
+
+Email: [AkagawaTsurunaki@outlook.com](mailto:AkagawaTsurunaki@outlook.com)
+
+Github: [AkagawaTsurunaki](https://github.com/AkagawaTsurunaki)

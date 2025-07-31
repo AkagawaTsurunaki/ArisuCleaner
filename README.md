@@ -1,8 +1,10 @@
 # Arisu Cleaner
 
-![Static Badge](https://img.shields.io/badge/Minecraft-1.21.5-blue) ![Static Badge](https://img.shields.io/badge/Fabric-0.16.13-blue) ![Static Badge](https://img.shields.io/badge/ver-1.0.0-blue) ![Static Badge](https://img.shields.io/badge/ServerOnly-orange)
+![Static Badge](https://img.shields.io/badge/Minecraft-1.21.4-blue) ![Static Badge](https://img.shields.io/badge/Fabric-0.16.13-blue) ![Static Badge](https://img.shields.io/badge/ver-1.0.0-blue) ![Static Badge](https://img.shields.io/badge/ServerOnly-orange)
 
 定时清理 Minecraft 服务器中的各维度的物品实体（Item Entity），并在清理前通知所有玩家。
+
+**支持的 Minecraft 版本**：`1.21.4`、`1.21.5`
 
 ## 使用方法
 
@@ -28,6 +30,8 @@
 
 ## Contact with me
 
-Email: AkagawaTsurunaki@outlook.com
+Bilibili: [赤川鹤鸣_Channel](https://space.bilibili.com/1076299680)
 
-Github: AkagawaTsurunaki
+Email: [AkagawaTsurunaki@outlook.com](mailto:AkagawaTsurunaki@outlook.com)
+
+Github: [AkagawaTsurunaki](https://github.com/AkagawaTsurunaki)
