@@ -3,7 +3,6 @@
 	"package": "com.github.akagawatsurunaki.arisucleaner.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
