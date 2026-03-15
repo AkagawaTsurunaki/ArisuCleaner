@@ -3,6 +3,7 @@ package com.github.akagawatsurunaki.arisucleaner;
 import com.github.akagawatsurunaki.arisucleaner.command.ClearEntitiesCommand;
 import com.github.akagawatsurunaki.arisucleaner.command.ClearItemsCommand;
 import com.github.akagawatsurunaki.arisucleaner.manager.TaskManager;
+import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.fabricmc.api.ModInitializer;
 
@@ -57,7 +58,7 @@ public class ArisuCleaner implements ModInitializer {
                                             .executes(ClearEntitiesCommand::executeWithOneArg)
                                             .then(CommandManager.argument("maxEntities", IntegerArgumentType.integer(1))
                                                     .executes(ClearEntitiesCommand::executeWithTwoArgs)
-                                                    .then(CommandManager.argument("removeRatio", IntegerArgumentType.integer(1))
+                                                    .then(CommandManager.argument("removeRatio", FloatArgumentType.floatArg(0, 1))
                                                             .executes(ClearEntitiesCommand::executeWithThreeArgs)
                                                     )
                                             )

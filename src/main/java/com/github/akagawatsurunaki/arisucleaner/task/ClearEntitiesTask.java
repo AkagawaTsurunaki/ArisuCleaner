@@ -10,6 +10,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.TypeFilter;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,12 +21,12 @@ import static com.github.akagawatsurunaki.arisucleaner.ArisuCleaner.LOGGER;
 public class ClearEntitiesTask extends AbstractTask {
 
     public static final int DEFAULT_EXECUTE_TICKS = 20 * 60 * 5;
-    public static final int DEFAULT_MAX_ENTITIES = 2500;
+    public static final int DEFAULT_MAX_ENTITIES = 3000;
     public static final float DEFAULT_REMOVE_RATIO = 0.8f;
 
     Map<RegistryKey<World>, EvictingList<Integer>> record = new HashMap<>();
-    private int maxEntities;
-    private float removeRatio = 0.8f;
+    private int maxEntities = DEFAULT_MAX_ENTITIES;
+    private float removeRatio = DEFAULT_REMOVE_RATIO;
 
     public void setMaxEntities(int maxEntities) {
         this.maxEntities = maxEntities;
@@ -62,37 +63,45 @@ public class ClearEntitiesTask extends AbstractTask {
 
         // Kill entities
         if (totalEntities >= maxEntities) {
-            killEntities(server);
+            killEntitiesWithMostPopulation(server);
         }
     }
 
-    private void killEntities(MinecraftServer server) {
+    /**
+     * Find the living entity type with the highest count and eliminate a portion based on the given ratio.
+     * @param server MinecraftServer
+     */
+    private void killEntitiesWithMostPopulation(MinecraftServer server) {
+        var livingEntities = new ArrayList<LivingEntity>();
         for (ServerWorld world : server.getWorlds()) {
-            var livingEntities = world.getEntitiesByType(TypeFilter.instanceOf(LivingEntity.class),
-                    livingEntity -> !livingEntity.hasCustomName());
-            var candidateEntities = livingEntities.stream().collect(Collectors.groupingBy(LivingEntity::getType, Collectors.counting()));
-            var maxPopulationEntities = candidateEntities.entrySet().stream()
-                    .max(Map.Entry.comparingByValue())
-                    .orElse(null);
-            if (maxPopulationEntities != null) {
-                var entityType = maxPopulationEntities.getKey();
-                var killEntities = livingEntities.stream().filter(livingEntity -> livingEntity.getType() == entityType).toList();
-                var numKillableEntities = killEntities.size();
-                try {
-                    for (int i = 0; i < killEntities.size() * removeRatio; i++) {
-                        var killEntity = killEntities.get(i);
-                        killEntity.remove(Entity.RemovalReason.DISCARDED);
-                    }
-                } catch (Exception e) {
-                    LOGGER.error("Encounter an exception during cleaning entities", e);
-                }
-                LOGGER.info("Since {} has the largest population {}, remove {}% of them.", entityType, numKillableEntities, removeRatio * 100);
-                server.getPlayerManager().broadcast(
-                        Text.literal("[ArisuCleaner] 服务器 LivingEntity 已达到最大上限 " + maxEntities + "，将移除 " + removeRatio * 100 + " 的" + entityType)
-                                .setStyle(ARISU_STYLE.withBold(true)),
-                        false);
-            }
+            livingEntities.addAll(world.getEntitiesByType(TypeFilter.instanceOf(LivingEntity.class),
+                    livingEntity -> !livingEntity.hasCustomName()));
         }
+        var candidateEntities = livingEntities.stream()
+                .collect(Collectors.groupingBy(LivingEntity::getType, Collectors.counting()));
+        var maxPopulationEntities = candidateEntities.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .orElse(null);
+        if (maxPopulationEntities != null) {
+            var entityType = maxPopulationEntities.getKey();
+            var killEntities = livingEntities.stream().filter(livingEntity -> livingEntity.getType() == entityType).toList();
+            var numKillableEntities = 0;
+            try {
+                for (int i = 0; i < killEntities.size() * removeRatio; i++) {
+                    var killEntity = killEntities.get(i);
+                    killEntity.remove(Entity.RemovalReason.DISCARDED);
+                    numKillableEntities+=1;
+                }
+            } catch (Exception e) {
+                LOGGER.error("Encounter an exception during cleaning entities", e);
+            }
+            LOGGER.info("Since {} has the largest population {}, remove {}% of them.", entityType, numKillableEntities, removeRatio * 100);
+            server.getPlayerManager().broadcast(
+                    Text.literal("[ArisuCleaner] %d 个有生命实体已被清除！".formatted(numKillableEntities))
+                            .setStyle(ARISU_STYLE),
+                    false);
+        }
+
     }
 
     private void logRecord() {

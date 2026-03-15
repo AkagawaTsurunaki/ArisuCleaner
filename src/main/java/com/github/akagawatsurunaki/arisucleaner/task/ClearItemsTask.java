@@ -47,8 +47,7 @@ public class ClearItemsTask {
             server.getRateLimit();
             float tipsSeconds = (float) (tipsTicks) / server.getTickManager().getTickRate();
             server.getPlayerManager().broadcast(
-                    Text.literal("[ArisuCleaner] %.2f 秒后掉落物将被清除".formatted(tipsSeconds))
-                            .setStyle(ARISU_STYLE.withBold(true)),
+                    Text.literal("[ArisuCleaner] %.2f 秒后掉落物将被清除".formatted(tipsSeconds)).setStyle(ARISU_STYLE),
                     false);
         }
 
@@ -68,8 +67,7 @@ public class ClearItemsTask {
                 // itemEntitiesInAllWorlds.forEach(Entity::kill);
             }
             server.getPlayerManager().broadcast(
-                    Text.literal("[ArisuCleaner] %d 个掉落物已被清除！".formatted(count))
-                            .setStyle(ARISU_STYLE.withBold(true)),
+                    Text.literal("[ArisuCleaner] %d 个掉落物已被清除！".formatted(count)).setStyle(ARISU_STYLE),
                     false);
             isTipSent = false;
             elapsedTicks = 0;

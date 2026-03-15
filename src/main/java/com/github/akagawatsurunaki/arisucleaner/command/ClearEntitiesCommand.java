@@ -70,8 +70,8 @@ public class ClearEntitiesCommand {
     private static void execute(int executeTicks, int maxEntities, float removeRatio, CommandContext<ServerCommandSource> context) {
         TaskManager.INSTANCE.startClearEntitiesTask(executeTicks, maxEntities, removeRatio);
         context.getSource().sendFeedback(() ->
-                Text.literal("[ArisuCleaner] 清理实体任务更新为每 %d Ticks 清理。"
-                                .formatted(executeTicks))
+                Text.literal("[ArisuCleaner] 清理实体任务更新为每 %d Ticks 清理，最大实体数量 %d，清除实体比例 %.2f。"
+                                .formatted(executeTicks, maxEntities, removeRatio))
                         .setStyle(ARISU_STYLE), true);
     }
 }
