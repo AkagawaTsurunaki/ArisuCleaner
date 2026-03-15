@@ -1,5 +1,6 @@
 package com.github.akagawatsurunaki.arisucleaner;
 
+import com.github.akagawatsurunaki.arisucleaner.command.ClearEntitiesCommand;
 import com.github.akagawatsurunaki.arisucleaner.command.ClearItemsCommand;
 import com.github.akagawatsurunaki.arisucleaner.manager.TaskManager;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -12,6 +13,7 @@ import net.minecraft.text.TextColor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static com.github.akagawatsurunaki.arisucleaner.task.ClearEntitiesTask.DEFAULT_CLEAR_ENTITIES_TICKS;
 import static com.github.akagawatsurunaki.arisucleaner.task.ClearItemsTask.DEFAULT_CLEAR_TICKS;
 import static com.github.akagawatsurunaki.arisucleaner.task.ClearItemsTask.DEFAULT_TIPS_TICKS;
 
@@ -32,6 +34,7 @@ public class ArisuCleaner implements ModInitializer {
         // Proceed with mild caution.
         LOGGER.info("Initializing ArisuCleaner...");
         TaskManager.INSTANCE.startClearItemsTask(DEFAULT_CLEAR_TICKS, DEFAULT_TIPS_TICKS);
+        TaskManager.INSTANCE.startClearEntitiesTask(DEFAULT_CLEAR_ENTITIES_TICKS);
         CommandRegistrationCallback.EVENT.register((commandDispatcher, commandRegistryAccess, registrationEnvironment) -> {
             commandDispatcher.register(
                     CommandManager.literal("clearItems")
@@ -43,7 +46,16 @@ public class ArisuCleaner implements ModInitializer {
                             )
 
             );
+        });
+        CommandRegistrationCallback.EVENT.register((commandDispatcher, commandRegistryAccess, registrationEnvironment) -> {
+            commandDispatcher.register(
+                    CommandManager.literal("clearEntities")
+                            .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(4))
+                            .then(CommandManager.argument("clearTicks", IntegerArgumentType.integer(1))
+                                    .executes(ClearEntitiesCommand::executeWithOneArg)
+                            )
 
+            );
         });
         LOGGER.info("Initialized ArisuCleaner!");
     }
