@@ -5,7 +5,7 @@ import com.github.akagawatsurunaki.arisucleaner.task.ClearItemsTask;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 
 import static com.github.akagawatsurunaki.arisucleaner.ArisuCleaner.LOGGER;
-import static com.github.akagawatsurunaki.arisucleaner.task.ClearEntitiesTask.DEFAULT_CLEAR_ENTITIES_TICKS;
+import static com.github.akagawatsurunaki.arisucleaner.task.ClearEntitiesTask.DEFAULT_EXECUTE_TICKS;
 import static com.github.akagawatsurunaki.arisucleaner.task.ClearItemsTask.DEFAULT_CLEAR_TICKS;
 import static com.github.akagawatsurunaki.arisucleaner.task.ClearItemsTask.DEFAULT_TIPS_TICKS;
 
@@ -26,11 +26,13 @@ public class TaskManager {
         }
     }
 
-    private final ClearEntitiesTask clearEntitiesTask = new ClearEntitiesTask(DEFAULT_CLEAR_ENTITIES_TICKS);
+    private final ClearEntitiesTask clearEntitiesTask = new ClearEntitiesTask(DEFAULT_EXECUTE_TICKS);
     private boolean isClearEntitiesTaskRegistered = false;
 
-    public void startClearEntitiesTask(int clearEntitiesPerTicks) {
-        clearEntitiesTask.setExecutePerTicks(clearEntitiesPerTicks);
+    public void startClearEntitiesTask(int clearTicks, int maxEntities, float removeRatio) {
+        clearEntitiesTask.setExecutePerTicks(clearTicks);
+        clearEntitiesTask.setMaxEntities(maxEntities);
+        clearEntitiesTask.setRemoveRatio(removeRatio);
         if (!isClearEntitiesTaskRegistered) {
             ServerTickEvents.END_SERVER_TICK.register(clearEntitiesTask::tick);
             isClearEntitiesTaskRegistered = true;

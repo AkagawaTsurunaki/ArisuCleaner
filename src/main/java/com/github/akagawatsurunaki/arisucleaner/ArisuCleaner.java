@@ -13,7 +13,7 @@ import net.minecraft.text.TextColor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.github.akagawatsurunaki.arisucleaner.task.ClearEntitiesTask.DEFAULT_CLEAR_ENTITIES_TICKS;
+import static com.github.akagawatsurunaki.arisucleaner.task.ClearEntitiesTask.*;
 import static com.github.akagawatsurunaki.arisucleaner.task.ClearItemsTask.DEFAULT_CLEAR_TICKS;
 import static com.github.akagawatsurunaki.arisucleaner.task.ClearItemsTask.DEFAULT_TIPS_TICKS;
 
@@ -34,7 +34,7 @@ public class ArisuCleaner implements ModInitializer {
         // Proceed with mild caution.
         LOGGER.info("Initializing ArisuCleaner...");
         TaskManager.INSTANCE.startClearItemsTask(DEFAULT_CLEAR_TICKS, DEFAULT_TIPS_TICKS);
-        TaskManager.INSTANCE.startClearEntitiesTask(DEFAULT_CLEAR_ENTITIES_TICKS);
+        TaskManager.INSTANCE.startClearEntitiesTask(DEFAULT_EXECUTE_TICKS, DEFAULT_MAX_ENTITIES, DEFAULT_REMOVE_RATIO);
         CommandRegistrationCallback.EVENT.register((commandDispatcher, commandRegistryAccess, registrationEnvironment) -> {
             commandDispatcher.register(
                     CommandManager.literal("clearItems")
@@ -51,10 +51,15 @@ public class ArisuCleaner implements ModInitializer {
             commandDispatcher.register(
                     CommandManager.literal("clearEntities")
                             .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(4))
-                            .then(CommandManager.argument("clearTicks", IntegerArgumentType.integer(1))
+                            .then(CommandManager.argument("executeTicks", IntegerArgumentType.integer(1))
                                     .executes(ClearEntitiesCommand::executeWithOneArg)
+                                    .then(CommandManager.argument("maxEntities", IntegerArgumentType.integer(1))
+                                            .executes(ClearEntitiesCommand::executeWithTwoArgs)
+                                            .then(CommandManager.argument("removeRatio", IntegerArgumentType.integer(1))
+                                                    .executes(ClearEntitiesCommand::executeWithThreeArgs)
+                                            )
+                                    )
                             )
-
             );
         });
         LOGGER.info("Initialized ArisuCleaner!");
