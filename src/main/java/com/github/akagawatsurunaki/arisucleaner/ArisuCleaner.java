@@ -37,26 +37,29 @@ public class ArisuCleaner implements ModInitializer {
         TaskManager.INSTANCE.startClearEntitiesTask(DEFAULT_EXECUTE_TICKS, DEFAULT_MAX_ENTITIES, DEFAULT_REMOVE_RATIO);
         CommandRegistrationCallback.EVENT.register((commandDispatcher, commandRegistryAccess, registrationEnvironment) -> {
             commandDispatcher.register(
-                    CommandManager.literal("clearItems")
+                    CommandManager.literal("arisucleaner")
                             .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(4))
-                            .then(CommandManager.argument("clearTicks", IntegerArgumentType.integer(1))
-                                    .executes(ClearItemsCommand::executeWithOneArg)
-                                    .then(CommandManager.argument("tipsTicks", IntegerArgumentType.integer(1))
-                                            .executes(ClearItemsCommand::executeWithTwoArg))
-                            )
-
+                            .then(CommandManager.literal("clearItems")
+                                    .then(CommandManager.argument("clearTicks", IntegerArgumentType.integer(1))
+                                            .executes(ClearItemsCommand::executeWithOneArg)
+                                            .then(CommandManager.argument("tipsTicks", IntegerArgumentType.integer(1))
+                                                    .executes(ClearItemsCommand::executeWithTwoArg))
+                                    ))
             );
         });
+
         CommandRegistrationCallback.EVENT.register((commandDispatcher, commandRegistryAccess, registrationEnvironment) -> {
             commandDispatcher.register(
-                    CommandManager.literal("clearEntities")
+                    CommandManager.literal("arisucleaner")
                             .requires(serverCommandSource -> serverCommandSource.hasPermissionLevel(4))
-                            .then(CommandManager.argument("executeTicks", IntegerArgumentType.integer(1))
-                                    .executes(ClearEntitiesCommand::executeWithOneArg)
-                                    .then(CommandManager.argument("maxEntities", IntegerArgumentType.integer(1))
-                                            .executes(ClearEntitiesCommand::executeWithTwoArgs)
-                                            .then(CommandManager.argument("removeRatio", IntegerArgumentType.integer(1))
-                                                    .executes(ClearEntitiesCommand::executeWithThreeArgs)
+                            .then(CommandManager.literal("clearEntities")
+                                    .then(CommandManager.argument("executeTicks", IntegerArgumentType.integer(1))
+                                            .executes(ClearEntitiesCommand::executeWithOneArg)
+                                            .then(CommandManager.argument("maxEntities", IntegerArgumentType.integer(1))
+                                                    .executes(ClearEntitiesCommand::executeWithTwoArgs)
+                                                    .then(CommandManager.argument("removeRatio", IntegerArgumentType.integer(1))
+                                                            .executes(ClearEntitiesCommand::executeWithThreeArgs)
+                                                    )
                                             )
                                     )
                             )
